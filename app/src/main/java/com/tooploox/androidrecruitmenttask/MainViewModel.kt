@@ -15,7 +15,7 @@ class MainViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            _songs.value = apiService.service.getSongs("post malone", 30).songs.map { Song(it.trackName, it.artist) }
+            _songs.value = apiService.service.getSongs("post malone", 30).songs.map { Song(it.trackName, it.artist, it.releaseDate.substring(0,4).toInt()) }
         }
     }
 }

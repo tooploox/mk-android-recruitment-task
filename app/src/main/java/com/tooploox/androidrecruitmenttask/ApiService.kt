@@ -4,13 +4,18 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 
 class ApiService {
 
-    private val contentType = MediaType.get("application/json")
+    private val contentType = "application/json".toMediaType()
+    private val client =  OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)).build()
+
     private val json = Json {
-        ignoreUnknownKeys = true
+        isLenient = true
     }
 
     @ExperimentalSerializationApi
@@ -19,7 +24,9 @@ class ApiService {
         .addConverterFactory(
             json.asConverterFactory(contentType)
         )
+        .client(client)
         .build()
 
+    @OptIn(ExperimentalSerializationApi::class)
     val service: ItunesService = retrofit.create(ItunesService::class.java)
 }
