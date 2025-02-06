@@ -11,5 +11,6 @@ data class SongsResponse(
 @Serializable
 data class SongResponse(
     @SerialName("trackName") val trackName: String,
-    @SerialName("artistName") val artist: String
+    @SerialName("artistName") val artist: String,
+    @SerialName("releaseDate") val releaseDate: String
 )
