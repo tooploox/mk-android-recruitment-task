@@ -1,5 +1,6 @@
-package com.tooploox.androidrecruitmenttask
+package com.tooploox.androidrecruitmenttask.data
 
+import com.tooploox.androidrecruitmenttask.domain.Song
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -13,3 +14,5 @@ data class SongResponse(
     @SerialName("trackName") val trackName: String,
     @SerialName("artistName") val artist: String
 )
+
+fun SongResponse.toDomainModel() = Song(title = trackName, artist = artist)

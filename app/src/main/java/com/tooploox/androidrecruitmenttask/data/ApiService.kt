@@ -1,4 +1,4 @@
-package com.tooploox.androidrecruitmenttask
+package com.tooploox.androidrecruitmenttask.data
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.ExperimentalSerializationApi

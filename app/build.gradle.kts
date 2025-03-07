@@ -70,4 +70,5 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.viewmodel.compose)
+    implementation(libs.androidx.navigation.compose)
 }
