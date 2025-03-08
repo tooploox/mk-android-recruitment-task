@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 class SongsUseCase {
 
-    private val _songs: MutableStateFlow<MutableList<Song>> = MutableStateFlow(mutableListOf())
+    private val _songs: MutableStateFlow<List<Song>> = MutableStateFlow(emptyList())
     val songs: StateFlow<List<Song>> = _songs
 
     private val networkSongsRepository: SongsRepository = NetworkSongsRepository()
@@ -17,11 +17,13 @@ class SongsUseCase {
 
     suspend fun getSongs(term: String, limit: Int) = coroutineScope {
         val networkSongsRequest = async {
-            _songs.value += networkSongsRepository.getSongs(term = term, limit = limit).toMutableList()
+            val result = networkSongsRepository.getSongs(term = term, limit = limit).toMutableList()
+            _songs.value += result
         }
 
         val localSongsRequest = async {
-            _songs.value += localSongsRepository.getSongs(term = term, limit = limit)
+            val result = localSongsRepository.getSongs(term = term, limit = limit)
+            _songs.value += result
         }
 
         networkSongsRequest.await()

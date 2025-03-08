@@ -21,7 +21,13 @@ fun MainScreen() {
     val viewAction by viewModel.viewActionFlow.collectAsStateWithLifecycle()
 
     when (val action = viewAction) {
-        is SongListViewAction.ShowDetails -> navController.navigate(Details(song = action.song))
+        is SongListViewAction.ShowDetails -> navController.navigate(
+            Details(
+                title = action.song.title,
+                artist = action.song.artist
+            )
+        )
+
         null -> Unit
     }
 
@@ -41,8 +47,13 @@ fun MainScreen() {
         }
 
         composable<Details> {
-            val song: Song = it.toRoute()
-            DetailsView(song = song)
+            val details: Details = it.toRoute()
+            DetailsView(
+                song = Song(
+                    title = details.title,
+                    artist = details.artist
+                )
+            )
         }
     }
 }
